@@ -32,7 +32,7 @@ class PractitionerTypeDAO extends DAO
      * @return \GSB\Domain\PractitionerType|throws an exception if no type is found.
      */
     public function find($id) {
-        $sql = "select * from type where practitioner_type=?";
+        $sql = "select * from practitioner_type where practitioner_type_id=?";
         $row = $this->getDb()->fetchAssoc($sql, array($id));
 
         if ($row)
@@ -50,8 +50,8 @@ class PractitionerTypeDAO extends DAO
      */
     protected function buildDomainObject($row) {
         $type = new PractitionerType();
-        $type->setId($row['practitioner_type']);
-        $type->setName($row['practitioner_type']);
+        $type->setId($row['practitioner_type_id']);
+        $type->setName($row['practitioner_type_name']);
         return $type;
     }
 }
