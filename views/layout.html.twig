@@ -22,11 +22,20 @@
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse-target">
                     <ul class="nav navbar-nav">
+                        
                         <li class="dropdown {% if drugMenu is defined %}active{% endif %}">
                             <a href="" class="dropdown-toggle" data-toggle="dropdown">Médicaments <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="/drugs/">Consulter</a></li>
                                 <li><a href="/drugs/search/">Rechercher</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="dropdown {% if drugMenu is defined %}active{% endif %}">
+                            <a href="" class="dropdown-toggle" data-toggle="dropdown">Practiciens <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/practitioners/">Consulter</a></li>
+                                <li><a href="/practitioners/search/">Rechercher</a></li>
                             </ul>
                         </li>
                     </ul>
