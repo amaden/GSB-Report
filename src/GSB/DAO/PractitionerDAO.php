@@ -36,13 +36,13 @@ class PractitionerDAO extends DAO
     /**
      * Returns the list of all practitioners for a given type, sorted by name.
      *
-     * @param integer $typeId The family id.
+     * @param integer $typeId The type id.
      *
      * @return array The list of practitioners.
      */
-    public function findAllByType($type_id) {
+    public function findAllByType($typeId) {
         $sql = "select * from practitioner where practitioner_type_id=? order by practitioner_name";
-        $result = $this->getDb()->fetchAll($sql, array($type_Id));
+        $result = $this->getDb()->fetchAll($sql, array($typeId));
         
         // Convert query result to an array of domain objects
         $practitioners = array();

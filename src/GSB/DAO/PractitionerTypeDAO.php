@@ -18,7 +18,7 @@ class PractitionerTypeDAO extends DAO
         // Converts query result to an array of domain objects
         $types = array();
         foreach ($result as $row) {
-            $typeId = $row['practitioner_type'];
+            $typeId = $row['practitioner_type_id'];
             $types[$typeId] = $this->buildDomainObject($row);
         }
         return $types;
