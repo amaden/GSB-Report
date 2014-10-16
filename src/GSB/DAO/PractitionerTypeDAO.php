@@ -7,7 +7,7 @@ use GSB\Domain\PractitionerType;
 class PractitionerTypeDAO extends DAO
 {
     /**
-     * Returns the list of all type, sorted by name.
+     * Returns the list of all practitioner types, sorted by name.
      *
      * @return array The list of all families.
      */
@@ -16,20 +16,20 @@ class PractitionerTypeDAO extends DAO
         $result = $this->getDb()->fetchAll($sql);
         
         // Converts query result to an array of domain objects
-        $types = array();
+        $practitionerTypes = array();
         foreach ($result as $row) {
-            $typeId = $row['practitioner_type_id'];
-            $types[$typeId] = $this->buildDomainObject($row);
+            $practitionerTypeId = $row['practitioner_type_id'];
+            $practitionerTypes[$practitionerTypeId] = $this->buildDomainObject($row);
         }
-        return $types;
+        return $practitionerTypes;
     }
 
     /**
-     * Returns the types matching the given id.
+     * Returns the PractitionerType matching the given id.
      *
-     * @param integer $id The type id.
+     * @param integer $id
      *
-     * @return \GSB\Domain\PractitionerType|throws an exception if no type is found.
+     * @return \GSB\Domain\PractitionerType|throws an exception if no PractitionerType is found.
      */
     public function find($id) {
         $sql = "select * from practitioner_type where practitioner_type_id=?";
@@ -38,20 +38,21 @@ class PractitionerTypeDAO extends DAO
         if ($row)
             return $this->buildDomainObject($row);
         else
-            throw new \Exception("No type found for id " . $id);
+            throw new \Exception("No PractitionerType found for id " . $id);
     }
 
     /**
-     * Creates a Family instance from a DB query result row.
+     * Creates a PractitionerType instance from a DB query result row.
      *
      * @param array $row The DB query result row.
      *
-     * @return \GSB\Domain\Family
+     * @return \GSB\Domain\PractitionerType
      */
     protected function buildDomainObject($row) {
-        $type = new PractitionerType();
-        $type->setId($row['practitioner_type_id']);
-        $type->setName($row['practitioner_type_name']);
-        return $type;
+        $practitionerType = new PractitionerType();
+        $practitionerType->setId($row['practitioner_type_id']);
+        $practitionerType->setName($row['practitioner_type_name']);
+        $practitionerType->setPlace($row['practitioner_type_place']);
+        return $practitionerType;
     }
 }

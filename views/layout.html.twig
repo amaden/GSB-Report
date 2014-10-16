@@ -22,7 +22,6 @@
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse-target">
                     <ul class="nav navbar-nav">
-                        
                         <li class="dropdown {% if drugMenu is defined %}active{% endif %}">
                             <a href="" class="dropdown-toggle" data-toggle="dropdown">Médicaments <b class="caret"></b></a>
                             <ul class="dropdown-menu">
@@ -30,33 +29,38 @@
                                 <li><a href="/drugs/search/">Rechercher</a></li>
                             </ul>
                         </li>
-                        
-                        <li class="dropdown {% if drugMenu is defined %}active{% endif %}">
-                            <a href="" class="dropdown-toggle" data-toggle="dropdown">Practiciens <b class="caret"></b></a>
+                        <li class="dropdown {% if practitionerMenu is defined %}active{% endif %}">
+                            <a href="" class="dropdown-toggle" data-toggle="dropdown">Praticiens <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="/practitioners/">Consulter</a></li>
                                 <li><a href="/practitioners/search/">Rechercher</a></li>
                             </ul>
                         </li>
+                        <li class="dropdown {% if visitReportMenu is defined %}active{% endif %}">
+                            <a href="" class="dropdown-toggle" data-toggle="dropdown">Rapport de visite <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/reports/">Consulter</a></li>
+                                <li><a href="/reports/add/">Ajouter</a></li>
+                            </ul>
+                        </li>
                     </ul>
-                    <!--- connection ----->
                     <ul class="nav navbar-nav navbar-right">
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-user"></span> Bonjour, {{ app.security.token.user.username }} <b class="caret"></b></a>
+                                <span class="glyphicon glyphicon-user"></span> Bienvenue, {{ app.security.token.user.username }} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{{ path('logout') }}">déconnexion</a></li>
-                                    <li><a href="visitors/">Profil</a></li>
+                                    <li><a href="/me">Profil</a></li>
+                                    <li><a href="{{ path('logout') }}">Se déconnecter</a></li>
                                 </ul>
                             </li>
                         {% else %}
                             <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-user"></span> Non connecté <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ path('login') }}">connexion</a></li>
-                                </ul>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-user"></span> Non connecté <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ path('login') }}">Se connecter</a></li>
+                                    </ul>
                             </li>
                         {% endif %}
                     </ul>

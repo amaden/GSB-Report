@@ -1,6 +1,7 @@
 <?php
 
 use Symfony\Component\HttpFoundation\Request;
+use GSB\Form\Type\VisitorType;
 
 // Home page
 $app->get('/', function () use ($app) {
@@ -46,7 +47,7 @@ $app->get('/practitioners/', function() use ($app) {
 
 // Search form for practitioners
 $app->get('/practitioners/search/', function() use ($app) {
-    $types = $app['dao.practitionerType']->findAll();
+    $types = $app['dao.practitionertype']->findAll();
     return $app['twig']->render('practitioners_search.html.twig', array('types' => $types));
 });
 
@@ -71,5 +72,31 @@ $app->get('/login', function(Request $request) use ($app) {
     return $app['twig']->render('login.html.twig', array(
         'error'         => $app['security.last_error']($request),
         'last_username' => $app['session']->get('_security.last_username'),
-    ));
+        ));
 })->bind('login');  // named route so that path('login') works in Twig templates
+
+// Personal info
+$app->match('/me', function(Request $request) use ($app) {
+    $visitor = $app['security']->getToken()->getUser();
+    $visitorFormView = NULL;
+    $visitorForm = $app['form.factory']->create(new VisitorType(), $visitor);
+    $visitorForm->handleRequest($request);
+    if ($visitorForm->isValid()) {
+        $plainPassword = $visitor->getPassword();
+        // find the encoder for a UserInterface instance
+        $encoder = $app['security.encoder_factory']->getEncoder($visitor);
+        // compute the encoded password
+        $password = $encoder->encodePassword($plainPassword, $visitor->getSalt());
+        $visitor->setPassword($password); 
+        $app['dao.visitor']->save($visitor);
+        $app['session']->getFlashBag()->add('success', 'Vos informations personnelles ont été mises à jour.');
+    }
+    $visitorFormView = $visitorForm->createView();
+    return $app['twig']->render('visitor.html.twig', array('visitorForm' => $visitorFormView));
+});
+
+// List of all visit reports
+$app->get('/reports/', function() use ($app) {
+    $reports = $app['dao.visitReport']->findAll();
+    return $app['twig']->render('reports.html.twig', array('reports' => $reports));
+});
