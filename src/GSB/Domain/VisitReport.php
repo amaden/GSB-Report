@@ -4,8 +4,8 @@ namespace GSB\Domain;
 
 class VisitReport{
     private $reportId;
-    private $practitionerId;
-    private $visitorId;
+    private $practitioner;
+    private $visitor;
     private $reportingDate;
     private $assessment;
     private $purpose;
@@ -14,11 +14,11 @@ class VisitReport{
         return $this->reportId;
     }
 
-    public function getPractitionerId() {
-        return $this->practitionerId;
+    public function getPractitioner() {
+        return $this->practitioner;
     }
 
-    public function getVisitorId() {
+    public function getVisitor() {
         return $this->visitorId;
     }
 
@@ -38,12 +38,12 @@ class VisitReport{
         $this->reportId = $reportId;
     }
 
-    public function setPractitionerId($practitionerId) {
-        $this->practitionerId = $practitionerId;
+    public function setPractitioner($practitioner) {
+        $this->practitioner = $practitioner;
     }
 
-    public function setVisitorId($visitorId) {
-        $this->visitorId = $visitorId;
+    public function setVisitor($visitor) {
+        $this->visitor = $visitor;
     }
 
     public function setReportingDate($reportingDate) {

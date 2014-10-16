@@ -58,8 +58,8 @@ class VisitReportDAO extends DAO{
 
         $reportVisit = new VisitReport();
         $reportVisit->setReportId($row['report_id']);
-        $reportVisit->setPractitionerId($practitioner);
-        $reportVisit->setVisitorId($visitor);
+        $reportVisit->setPractitioner($practitioner);
+        $reportVisit->setVisitor($visitor);
         $reportVisit->setReportingDate($row['reporting_date']);
         $reportVisit->setAssessment($row['assessment']);
         $reportVisit->setPurpose($row['purpose']);
